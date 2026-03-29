@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* reset browser spacing */
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+/* dark mode */
+:root {
+  color-scheme: dark;
+}
+
+/* smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* base body styling */
+body {
+  @apply bg-black text-white font-sans;
+  overflow-x: hidden;
+}
+
+/* text selection color */
+::selection {
+  background: rgba(95, 143, 17, 0.35);
+}
