@@ -223,7 +223,7 @@ className="scroll-mt-24"
 
   {/* Resume */}
   <a
-    href="/resume.docx"
+    href="/resume.pdf"
     download
     className="flex items-center gap-2 px-6 py-3 rounded-full bg-lime-400 text-black font-semibold hover:brightness-110 hover:scale-105 active:scale-95 transition"
   >
