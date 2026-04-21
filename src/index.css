@@ -17,6 +17,7 @@ html, body, #root {
 /* smooth scrolling */
 html {
   scroll-behavior: smooth;
+  overscroll-behavior: none;
 }
 
 /* base body styling */
@@ -28,4 +29,13 @@ body {
 /* text selection color */
 ::selection {
   background: rgba(95, 143, 17, 0.35);
+}
+@keyframes moveBg {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(200px); }
+}
+
+@keyframes slide {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
 }

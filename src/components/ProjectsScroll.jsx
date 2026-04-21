@@ -2,119 +2,162 @@ import { motion, AnimatePresence } from "framer-motion";
 import { FaGithub } from "react-icons/fa";
 import { projects } from "../data/projects";
 import ProjectsVideoBackground from "./ProjectsVideoBackground";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 export default function ProjectsScroll() {
 
   const [index, setIndex] = useState(0);
+  const [isLocked, setIsLocked] = useState(false);
+  const ref = useRef(null);
 
-  const nextProject = () => {
-    setIndex((prev) => Math.min(prev + 1, projects.length - 1));
-  };
-
-  const prevProject = () => {
-    setIndex((prev) => Math.max(prev - 1, 0));
-  };
-
-  // Arrow key navigation
   useEffect(() => {
 
-    const handleKey = (e) => {
-      if (e.key === "ArrowRight") nextProject();
-      if (e.key === "ArrowLeft") prevProject();
+    const handleWheel = (e) => {
+      const section = ref.current;
+      if (!section) return;
+
+      const rect = section.getBoundingClientRect();
+
+      // 👉 Only active when section is centered
+      const inView = rect.top <= 0 && rect.bottom >= window.innerHeight;
+
+      if (!inView) return;
+
+      if (isLocked) return;
+
+      e.preventDefault(); // lock page scroll
+
+      setIsLocked(true);
+
+      if (e.deltaY > 0) {
+        setIndex((prev) => {
+          if (prev === projects.length - 1) {
+            // allow leaving section
+            setTimeout(() => setIsLocked(false), 300);
+            return prev;
+          }
+          return prev + 1;
+        });
+      } else {
+        setIndex((prev) => {
+          if (prev === 0) {
+            setTimeout(() => setIsLocked(false), 300);
+            return prev;
+          }
+          return prev - 1;
+        });
+      }
+
+      setTimeout(() => setIsLocked(false), 600);
     };
 
-    window.addEventListener("keydown", handleKey);
-    return () => window.removeEventListener("keydown", handleKey);
+    window.addEventListener("wheel", handleWheel, { passive: false });
 
-  }, []);
+    return () => window.removeEventListener("wheel", handleWheel);
+
+  }, [isLocked]);
 
   const project = projects[index];
 
   return (
-    <div className="relative h-screen w-full overflow-hidden flex items-center">
+    <section
+      ref={ref}
+      className="relative h-screen w-full flex items-center overflow-hidden"
+    >
 
-      {/* Background Video */}
-      <ProjectsVideoBackground />
-      <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/20 to-black/80"></div>
+      {/* 🔥 BACKGROUND */}
+      <div className="absolute inset-0 z-0">
+        <ProjectsVideoBackground />
+        <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
+      </div>
 
-      {/* Projects Title */}
-      <motion.h2
-        initial={{ opacity: 0, y: 60 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        className="absolute top-12 left-1/2 -translate-x-1/2 text-4xl font-bold text-white z-20"
-      >
-        Projects
-      </motion.h2>
+      {/* 🔥 CONTENT WRAPPER */}
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 flex items-center justify-between">
 
-      {/* Project Card */}
-      <div className="relative z-10 ml-20 w-[900px] h-[520px]">
+        {/* 🔥 LEFT SIDE (MAIN CARD) */}
+        <div className="w-[60%]">
 
-        <AnimatePresence mode="wait">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={project.title}
+              initial={{ x: -80, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              exit={{ x: 80, opacity: 0 }}
+              transition={{ duration: 0.5 }}
+              className="rounded-3xl bg-black/70 backdrop-blur-xl border border-white/10 shadow-2xl overflow-hidden"
+            >
 
-          <motion.div
-            key={project.title}
-            initial={{ rotateX: 90, opacity: 0 }}
-            animate={{ rotateX: 0, opacity: 1 }}
-            exit={{ rotateX: -90, opacity: 0 }}
-            transition={{ duration: 0.6 }}
-            className="absolute inset-0 rounded-3xl bg-black/70 backdrop-blur border border-white/10 shadow-2xl overflow-hidden"
-          >
+              <div className="grid md:grid-cols-2 h-[520px]">
 
-            <div className="grid md:grid-cols-2 h-full">
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  className="h-full w-full object-cover"
+                />
 
-              {/* Image */}
-              <img
-                src={project.image}
-                alt={project.title}
-                className="h-full w-full object-cover"
-              />
+                <div className="p-10 flex flex-col justify-between bg-black/80">
 
-              {/* Text */}
-              <div className="p-10 flex flex-col justify-between bg-black/80">
+                  <div>
+                    <h2 className="text-4xl font-bold text-lime-300">
+                      {project.title}
+                    </h2>
 
-                <div>
+                    <p className="mt-6 text-white/70 text-lg">
+                      {project.desc}
+                    </p>
+                  </div>
 
-                  <h2 className="text-4xl font-bold text-lime-300">
-                    {project.title}
-                  </h2>
-
-                  <p className="mt-6 text-white/70 text-lg">
-                    {project.desc}
-                  </p>
+                  <a
+                    href={project.github}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-2 px-5 py-3 bg-white text-black rounded-md font-semibold hover:bg-gray-200 transition"
+                  >
+                    <FaGithub />
+                    GitHub
+                  </a>
+                    {/* 🔥 Live Demo (only if exists) */}
+                {project.live && (
+                  <a
+                    href={project.live}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-2 px-5 py-3 bg-lime-400 text-black rounded-md font-semibold hover:brightness-110 transition"
+                  >
+                    🚀 Live Demo
+                  </a>
+                )}
 
                 </div>
 
-                <a
-                  href={project.github}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex items-center gap-2 px-5 py-3 bg-white text-black rounded-md font-semibold hover:bg-gray-200 transition w-fit"
-                >
-                  <FaGithub />
-                  GitHub
-                </a>
-
               </div>
 
+            </motion.div>
+          </AnimatePresence>
+
+        </div>
+
+        {/* 🔥 RIGHT SIDE (INDICATOR / LIST) */}
+        <div className="w-[30%] space-y-4">
+
+          {projects.map((p, i) => (
+            <div
+              key={p.title}
+              className={`cursor-pointer p-4 rounded-xl transition ${
+                i === index
+                  ? "bg-lime-400 text-black font-semibold"
+                  : "bg-white/10 text-white/70 hover:bg-white/20"
+              }`}
+              onClick={() => setIndex(i)}
+            >
+              {p.title}
             </div>
+          ))}
 
-          </motion.div>
-
-        </AnimatePresence>
-
-      </div>
-
-      {/* Navigation Hint */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/60 text-sm flex items-center gap-4 z-20">
-
-        <div className="px-3 py-1 border border-white/40 rounded">←</div>
-        <span>Use Arrow Keys to change projects</span>
-        <div className="px-3 py-1 border border-white/40 rounded">→</div>
+        </div>
 
       </div>
 
-    </div>
+    </section>
   );
 }

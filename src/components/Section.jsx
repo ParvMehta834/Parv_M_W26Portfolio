@@ -1,14 +1,17 @@
-export default function Section({ id, title, children, className = "" }) {
+export default function Section({ id, title, children }) {
   return (
-    <section id={id} className={`py-16 sm:py-20 ${className}`}>
+    <section id={id} className="relative py-16">
+
+      {/* 🔥 TITLE */}
       {title && (
-        <div className="mx-auto max-w-6xl px-5">
-          <h2 className="mb-8 text-center text-3xl font-bold tracking-tight sm:text-4xl">
-            {title}
-          </h2>
-        </div>
+        <h2 className="relative z-10 text-4xl md:text-5xl font-bold text-center mb-12 text-white">
+          {title}
+        </h2>
       )}
+
+      {/* CONTENT */}
       {children}
+
     </section>
   );
 }

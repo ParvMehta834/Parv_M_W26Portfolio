@@ -5,7 +5,7 @@ import Marquee from "./components/Marquee.jsx";
 import Footer from "./components/Footer.jsx";
 import ProjectsScroll from "./components/ProjectsScroll.jsx";
 import SkillsLiveBg from "./components/SkillsLiveBg.jsx";
-
+import TechBackground from "./components/TechBackground";
 import { motion } from "framer-motion";
 import { FaGithub, FaLinkedin, FaEnvelope, FaPhoneAlt } from "react-icons/fa";
 
@@ -32,7 +32,7 @@ style={{ backgroundImage: "url('/hero-bg.webp')" }}
 
 <div className="relative z-10 px-6">
 
-<p className="uppercase tracking-[0.3em] text-sm text-white/80">
+<p className="uppercase tracking-[0.3em] text-sm text-white/200">
 Hello, my name is PARV
 </p>
 
@@ -41,7 +41,7 @@ PORTFOLIO
 </h1>
 
 <p className="mt-4 text-white/80">
-Welcome to the playground
+IT Developer • Automation • System Integration
 </p>
 
 <div className="mt-8 flex gap-4 justify-center">
@@ -95,7 +95,7 @@ Skills
 {/* PROJECTS */}
 <section
 id="projects"
-className="scroll-mt-24 relative overflow-hidden"
+className="scroll-mt-24"
 >
 
 <ProjectsScroll />
@@ -105,127 +105,137 @@ className="scroll-mt-24 relative overflow-hidden"
 {/* MARQUEE */}
 <Marquee text="Let's work together" />
 
+
 {/* ABOUT */}
-<section id="about" >
+<section id="about" className="relative overflow-hidden">
+
+  {/* 🔥 TECH BACKGROUND */}
+  <TechBackground />
+
   <Section title="About">
 
-<div className="scroll-mt-24 pt-24 mx-auto max-w-6xl px-5">
+    <div className="relative z-10 scroll-mt-24 pt-28 pb-16 mx-auto max-w-6xl px-5">
 
-<div className="grid gap-6 md:grid-cols-2">
+      <div className="grid gap-8 md:grid-cols-2">
 
-<div className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur">
+        {/* PROFILE CARD */}
+        <div className="rounded-3xl border border-white/20 bg-white/10 p-16 backdrop-blur-xl shadow-xl hover:scale-[1.02] transition">
 
-<div className="flex items-center gap-5">
+          <div className="flex items-center gap-5">
 
-<div className="relative w-32 h-32 rounded-full p-[4px] bg-lime-400 shadow-[0_0_25px_rgba(132,204,22,0.45)]">
+            <div className="relative w-32 h-32 rounded-full p-[4px] bg-lime-400 shadow-[0_0_35px_rgba(132,204,22,0.6)]">
 
-<div className="w-full h-full rounded-full overflow-hidden bg-black flex items-center justify-center">
+              <div className="w-full h-full rounded-full overflow-hidden bg-black">
+                <img
+                  src="/profile.jpeg"
+                  alt="Parv Mehta"
+                  className="w-full h-full object-cover object-[30%_15%]"
+                />
+              </div>
 
-<img
-src="/profile.jpeg"
-alt="Parv Mehta"
-className="w-full h-full object-cover object-[30%_15%]"
-/>
+            </div>
+
+            <div>
+              <p className="text-lg font-semibold md:text-3xl">
+                Hi 👋 I am Parv Mehta
+              </p>
+
+              <p className="mt-1 text-sm text-white/70">
+                IT Developer • Automation • System Integration
+              </p>
+            </div>
+
+          </div>
+
+          <p className="mt-6 text-sm leading-6 text-white/100 md:text-base">
+            I specialize in IT development, automation, and system integration — 
+            building reliable infrastructure while also crafting full-stack applications 
+            with React and Node.js when needed.
+          </p>
+
+        </div>
+
+        {/* EDUCATION */}
+        <div className="rounded-3xl border border-white/20 bg-white/10 p-16 backdrop-blur-xl shadow-xl hover:scale-[1.02] transition">
+
+          <h3 className="text-lg font-semibold">Education</h3>
+
+          <div className="mt-4 space-y-4">
+
+            <div className="rounded-xl bg-black/40 p-4 border border-white/10">
+              <p className="font-semibold">
+                Computer Programming & Analysis
+              </p>
+              <p className="text-sm text-white/70">
+                George Brown College • Toronto
+              </p>
+            </div>
+
+            <div className="rounded-xl bg-black/40 p-4 border border-white/10">
+              <p className="font-semibold">Courses & Focus</p>
+              <p className="text-sm text-white/70">
+                IT: System Architecture, Databases, Security, Cloud Infrastructure
+              </p>
+              <p className="text-sm text-white/70">
+                Dev: Full-Stack, React, Node.js, API Development
+              </p>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      {/* 🔥 ACTION BUTTONS */}
+      <div className="mt-12 flex flex-wrap justify-center gap-4">
+
+  {/* GitHub */}
+  <a
+    href="https://github.com/ParvMehta834"
+    target="_blank"
+    rel="noreferrer"
+    className="flex items-center gap-2 px-6 py-3 rounded-full bg-white/10 hover:bg-white/20 hover:scale-105 active:scale-95 transition backdrop-blur"
+  >
+    <FaGithub className="text-lg" />
+    GitHub
+  </a>
+
+  {/* LinkedIn */}
+  <a
+    href="https://linkedin.com/in/parv-mehta-658911301"
+    target="_blank"
+    rel="noreferrer"
+    className="flex items-center gap-2 px-6 py-3 rounded-full bg-white/10 hover:bg-white/20 hover:scale-105 active:scale-95 transition backdrop-blur"
+  >
+    <FaLinkedin className="text-lg" />
+    LinkedIn
+  </a>
+
+  {/* Email */}
+  <a
+    href="mailto:parvmehtait@gmail.com"
+    className="flex items-center gap-2 px-6 py-3 rounded-full bg-white/10 hover:bg-white/20 hover:scale-105 active:scale-95 transition backdrop-blur"
+  >
+    <FaEnvelope className="text-lg" />
+    Email
+  </a>
+
+  {/* Resume */}
+  <a
+    href="/resume.docx"
+    download
+    className="flex items-center gap-2 px-6 py-3 rounded-full bg-lime-400 text-black font-semibold hover:brightness-110 hover:scale-105 active:scale-95 transition"
+  >
+    📄 View Resume
+  </a>
 
 </div>
 
-</div>
+    </div>
 
-<div>
+  </Section>
 
-<p className="text-lg font-semibold">
-Hi 👋 I am Parv Mehta
-</p>
-
-<p className="mt-1 text-sm text-white/70">
-Junior Full-Stack Developer | React • Node • Databases • DevOps
-</p>
-
-</div>
-
-</div>
-
-<p className="mt-6 text-sm leading-6 text-white/75">
-I build clean, modern web applications with a focus on performance,
-UI/UX, and maintainable code. I enjoy turning ideas into real
-products using React, backend APIs, and strong database design.
-</p>
-
-</div>
-
-<div className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur">
-
-<h3 className="text-lg font-semibold">Education</h3>
-
-<div className="mt-4 space-y-3">
-
-<div className="rounded-2xl border border-white/10 bg-black/30 p-4 hover:bg-black/40">
-
-<p className="font-semibold">
-Computer Programming & Analysis
-</p>
-
-<p className="text-sm text-white/70">
-George Brown College • Toronto
-</p>
-
-</div>
-
-<div className="rounded-2xl border border-white/10 bg-black/30 p-4 hover:bg-black/40">
-
-<p className="font-semibold">Courses & Focus</p>
-
-<p className="text-sm text-white/70">
-Full-stack, DevOps, Databases, Security
-</p>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-<div className="mt-8 flex flex-wrap gap-3">
-
-<a
-href="https://github.com/ParvMehta834"
-target="_blank"
-rel="noreferrer"
-className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-5 py-3 text-sm hover:bg-white/10"
->
-<FaGithub /> GitHub
-</a>
-
-<a
-href="https://linkedin.com/in/parv-mehta-658911301"
-target="_blank"
-rel="noreferrer"
-className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-5 py-3 text-sm hover:bg-white/10"
->
-<FaLinkedin /> LinkedIn
-</a>
-
-<a
-href="mailto:parvmehtait@gmail.com"
-className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-5 py-3 text-sm hover:bg-white/10"
->
-<FaEnvelope /> Email
-</a>
-
-<a
-href="tel:+14379339629"
-className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-5 py-3 text-sm hover:bg-white/10"
->
-<FaPhoneAlt /> Phone
-</a>
-
-</div>
-
-</div>
-
-</Section>
 </section>
 <Footer />
 

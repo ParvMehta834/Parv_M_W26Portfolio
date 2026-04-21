@@ -4,7 +4,8 @@ export const projects = [
     desc: "Asset tracking and IT inventory management system with modern UI and scalable modules.",
     tag: "Full Stack",
     github: "https://github.com/ParvMehta834/ITraX",
-    image: "/project1.jpg",
+    live: "https://i-tra-x.vercel.app/",
+    image: "/project3.jpg",
     stack: ["React", "Node", "MongoDB"],
   },
   {
@@ -20,7 +21,7 @@ export const projects = [
     desc: "Voting platform with registration/login, topics, voting, and comments.",
     tag: "Web App",
     github: "https://github.com/ParvMehta834",
-    image: "/project3.jpg",
+    image: "/project1.jpg",
     stack: ["PHP", "MySQL", "Bootstrap"],
   },
 ]
